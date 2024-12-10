@@ -1,5 +1,6 @@
-package com.example.product;
+package com.example.product.service;
 
+import com.example.product.MyUserPrincipal;
 import com.example.product.model.Users;
 import com.example.product.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;

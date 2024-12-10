@@ -1,12 +1,13 @@
 package com.example.product.config;
 
 
-import com.example.product.MyUserDetailsService;
+import com.example.product.service.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,10 +23,12 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
         http
+                .csrf(csrf->csrf.disable())
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("login","register").permitAll()
+                        .requestMatchers("/api/login","/api/register").permitAll()
                         .anyRequest().authenticated()
-                );
+                )
+                .httpBasic(Customizer.withDefaults());
 
         return http.build();
     }
