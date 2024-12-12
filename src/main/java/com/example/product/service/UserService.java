@@ -18,11 +18,13 @@ public class UserService {
     private final UsersRepository usersRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final JwtService jwtService;
 
-    public UserService(UsersRepository usersRepository, BCryptPasswordEncoder bCryptPasswordEncoder, AuthenticationManager authenticationManager) {
+    public UserService(UsersRepository usersRepository, BCryptPasswordEncoder bCryptPasswordEncoder, AuthenticationManager authenticationManager, JwtService jwtService) {
         this.usersRepository = usersRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.authenticationManager = authenticationManager;
+        this.jwtService = jwtService;
     }
 
     public Users register(Users user) {
@@ -34,10 +36,9 @@ public class UserService {
         Authentication authenticate = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
 
-
-        //Users findUser = usersRepository.findByUsername(user.getUsername());
         if(authenticate.isAuthenticated())
-            return "234234234234234234";
+           // return "234234234234234234";
+return jwtService.generateToken(authenticate);
         return "failure";
     }
 }
