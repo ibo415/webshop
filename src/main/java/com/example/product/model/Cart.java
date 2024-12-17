@@ -15,7 +15,7 @@ public class Cart {
     private Long id;
 
     @OneToOne
-    @JsonBackReference  // Verhindert rekursive Benutzerbeziehung
+    @JsonBackReference  // verhindert rekursive Benutzerbeziehung
     private Users users;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
