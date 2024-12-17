@@ -2,8 +2,6 @@ package com.example.product.controller;
 
 import com.example.product.model.Product;
 import com.example.product.service.ProductService;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 

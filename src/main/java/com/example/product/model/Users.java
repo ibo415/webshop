@@ -1,20 +1,31 @@
 package com.example.product.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
     private Long id;
 
     private String username;
 
     private String password;
+
+    @OneToOne(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference  // Verhindert Endlosschleifen
+    private Cart cart;
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
 
     public Long getId() {
         return id;

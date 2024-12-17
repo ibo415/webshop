@@ -1,12 +1,11 @@
 package com.example.product.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -21,8 +20,19 @@ public class Product {
 
     private String imageName;
     private String imageType;
+
     @Lob
     private byte[] picByte;
+
+    @ManyToMany(mappedBy = "products")
+    private List<Cart> carts = new ArrayList<>();
+    public List<Cart> getCarts() {
+        return carts;
+    }
+
+    public void setCarts(List<Cart> carts) {
+        this.carts = carts;
+    }
 
     public long getId() {
         return id;
