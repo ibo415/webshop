@@ -1,8 +1,11 @@
 package com.example.product.controller;
 
 import com.example.product.model.Cart;
+import com.example.product.model.Product;
 import com.example.product.service.CartService;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/cart")
@@ -14,10 +17,13 @@ public class CartController {
         this.cartService = cartService;
     }
 
-    @GetMapping("{userId}")
-    public Cart getCartByUserId(@PathVariable Long userId){
-        return cartService.getCartByUserId(userId);
+    @GetMapping("/{userId}")
+    public List<Product> getCartProducts(@PathVariable Long userId) {
+        Cart cart = cartService.getCartByUserId(userId);
+
+        return cart.getProducts();
     }
+
 
     @PostMapping("/{userId}/add/{productId}")
     public Cart addProductToCart(@PathVariable Long userId, @PathVariable Long productId){
