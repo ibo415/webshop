@@ -1,5 +1,6 @@
 package com.example.product.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -23,6 +24,7 @@ public class Product {
     private String imageType;
 
     @Lob
+    @JsonIgnore
     private byte[] picByte;
 
     @ManyToMany(mappedBy = "products")
