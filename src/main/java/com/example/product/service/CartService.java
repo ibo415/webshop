@@ -7,6 +7,7 @@ import com.example.product.model.Users;
 import com.example.product.repository.CartRepository;
 import com.example.product.repository.ProductRepository;
 import com.example.product.repository.UsersRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,12 +20,12 @@ public class CartService {
     private final ProductRepository productRepository;
     private final UsersRepository usersRepository;
 
-    public CartService(CartRepository cartRepository, CartRepository cartRepository1, ProductRepository productRepository, UsersRepository usersRepository) {
-
-        this.cartRepository = cartRepository1;
+    public CartService(CartRepository cartRepository, ProductRepository productRepository, UsersRepository usersRepository) {
+        this.cartRepository = cartRepository;
         this.productRepository = productRepository;
         this.usersRepository = usersRepository;
     }
+
 
     public Cart addProductToCart(Long userId, Long productId) {
         // Warenkorb des Benutzers abrufen
@@ -51,6 +52,7 @@ public class CartService {
         return cartRepository.save(cart);
     }
 
+    //@Transactional
     public Cart getCartByUserId(Long userId) {
         return cartRepository.findByUsersId(userId);
     }
