@@ -29,7 +29,7 @@ public class CartService {
 
     public Cart addProductToCart(Long userId, Long productId) {
         // Warenkorb des Benutzers abrufen
-        Cart cart = cartRepository.findByUsersId(userId);
+        Cart cart = cartRepository.findByUsersUserId(userId);
 
         if (cart == null) {
             Users user = usersRepository.findById(userId)
@@ -54,6 +54,6 @@ public class CartService {
 
     //@Transactional
     public Cart getCartByUserId(Long userId) {
-        return cartRepository.findByUsersId(userId);
+        return cartRepository.findByUsersUserId(userId);
     }
 }

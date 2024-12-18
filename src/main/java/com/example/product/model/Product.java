@@ -1,9 +1,7 @@
 package com.example.product.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -14,7 +12,7 @@ import java.util.List;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private long productId;
 
     private String name;
     private BigDecimal price;
@@ -38,12 +36,12 @@ public class Product {
         this.carts = carts;
     }
 
-    public long getId() {
-        return id;
+    public long getProductId() {
+        return productId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setProductId(long productId) {
+        this.productId = productId;
     }
 
     public String getName() {

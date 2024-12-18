@@ -3,7 +3,6 @@ package com.example.product.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.*;
-import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.List;
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long cartId;
 
     @OneToOne
     @JsonBackReference  // verhindert rekursive Benutzerbeziehung
@@ -26,12 +25,12 @@ public class Cart {
     )
     private List<Product> products = new ArrayList<>();
 
-    public Long getId() {
-        return id;
+    public Long getCartId() {
+        return cartId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setCartId(Long cartId) {
+        this.cartId = cartId;
     }
 
     public Users getUsers() {
