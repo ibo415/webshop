@@ -38,7 +38,7 @@ public class UserService {
 
         Cart cart = new Cart();
         cart.setUsers(savedUser);
-        cart.setProducts(new ArrayList<>());
+        cart.setCartProducts(new ArrayList<>());
         cartRepository.save(cart);
         savedUser.setCart(cart);
         return  usersRepository.save(savedUser);
