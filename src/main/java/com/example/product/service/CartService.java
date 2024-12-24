@@ -2,6 +2,7 @@ package com.example.product.service;
 
 
 import com.example.product.model.Cart;
+import com.example.product.model.CartProduct;
 import com.example.product.model.Product;
 import com.example.product.model.Users;
 import com.example.product.repository.CartRepository;
@@ -27,28 +28,35 @@ public class CartService {
     }
 
 
-    public Cart addProductToCart(Long userId, Long productId) {
-        // Warenkorb des Benutzers abrufen
+    public Cart addProductToCart(Long userId, Long productId, int quantity) {
         Cart cart = cartRepository.findByUsersUserId(userId);
 
         if (cart == null) {
             Users user = usersRepository.findById(userId)
                     .orElseThrow(() -> new RuntimeException("Benutzer nicht gefunden"));
 
-            // Warenkorb erstellen und speichern
             cart = new Cart();
             cart.setUsers(user);
-            cartRepository.save(cart);  // Speicher den Warenkorb, um die ID zu generieren
+            cart.setCartProducts(new ArrayList<>());
+            cartRepository.save(cart);
         }
 
-        // Produkt suchen
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new RuntimeException("Produkt nicht gefunden"));
 
-        // Produkt dem Warenkorb hinzufügen
-        cart.getProducts().add(product);
+        for (CartProduct cp : cart.getCartProducts()) {
+            if (cp.getProduct().equals(product)) {
+                cp.setQuantity(cp.getQuantity() + quantity);
+                return cartRepository.save(cart);
+            }
+        }
 
-        // Warenkorb speichern und zurückgeben
+        CartProduct newCartProduct = new CartProduct();
+        newCartProduct.setCart(cart);
+        newCartProduct.setProduct(product);
+        newCartProduct.setQuantity(quantity);
+        cart.getCartProducts().add(newCartProduct);
+
         return cartRepository.save(cart);
     }
 
