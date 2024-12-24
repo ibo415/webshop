@@ -1,5 +1,6 @@
 package com.example.product.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
@@ -25,15 +26,16 @@ public class Product {
     @JsonIgnore
     private byte[] picByte;
 
-    @ManyToMany(mappedBy = "products")
     @JsonIgnore
-    private List<Cart> carts = new ArrayList<>();
-    public List<Cart> getCarts() {
-        return carts;
+    @OneToMany(mappedBy = "product")
+    private List<CartProduct> cartProducts = new ArrayList<>();
+
+    public List<CartProduct> getCartProducts() {
+        return cartProducts;
     }
 
-    public void setCarts(List<Cart> carts) {
-        this.carts = carts;
+    public void setCartProducts(List<CartProduct> cartProducts) {
+        this.cartProducts = cartProducts;
     }
 
     public long getProductId() {
